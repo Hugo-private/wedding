@@ -1031,7 +1031,8 @@
   .hero.cover .script, .hero.cover .names-line, .hero-date { text-shadow: 0 0 14px rgba(255, 252, 246, 0.9); }
   .envelope.cut-env { width: min(104%, 440px); aspect-ratio: 1100 / 724; margin-inline: -2%; perspective: none; }
   /* 開場轉場：點信封後封蠟亮起，柔和白光從封蠟漫開蓋滿畫面，光散去後進入內頁 */
-  .cut-env { position: relative; }
+  /* 花束伸在信封左側，整張圖往左移，讓信封本體置中 */
+  .cut-env { position: relative; left: -3.5%; }
   .cut-env > img { width: 100%; height: 100%; display: block; filter: drop-shadow(0 18px 18px rgba(110, 80, 60, 0.22)) drop-shadow(0 2px 3px rgba(110, 80, 60, 0.18)); }
   .seal-glow {
     position: absolute; left: 55.6%; top: 59.6%; width: 24%; aspect-ratio: 1;
@@ -1065,13 +1066,15 @@
 
   /* —— 第一段：拼貼開場 —— */
   .s-collage { --scene-bg: #e7dfd5; padding-bottom: calc(var(--seam) * 0.5); }
-  .art-collage { aspect-ratio: 998 / 1776; background-image: url("flora/collage-bg.webp"); }
+  .art-collage { aspect-ratio: 998 / 1776; background-image: url("flora/collage-bg-v2.webp"); }
   .c-card { position: absolute; left: 58.6%; top: 8%; width: 29.6%; height: 21.4%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.1cqw; text-align: center; color: #4b4640; }
   .c-card .script { font-size: 3.35cqw; line-height: 1.1; color: #7d6a5c; white-space: nowrap; }
   .c-card h2 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 1.95cqw; letter-spacing: 0.06em; color: #6e6359; white-space: nowrap; }
   .c-card .letter-text { gap: 1.4cqw; margin-top: 0.4cqw; }
   .c-card .letter-text p { font-size: 2.06cqw; line-height: 1.66; letter-spacing: 0.03em; white-space: nowrap; text-shadow: none; }
-  .a-photo.c-strip { background: #ece6df; }
+  /* 底片條與橢圓框的照片已直接合成進拼貼底圖（完全貼合窗格），這裡只留透明的點擊區供放大 */
+  .a-photo.c-strip, .a-photo.c-oval { background: transparent; }
+  .c-strip img, .c-oval img { opacity: 0; }
   .c-strip1 { left: 30.33%; top: 8.03%; width: 14.12%; height: 7.92%; transform: translate(-50%, -50%) rotate(-18deg); }
   .c-strip2 { left: 35.9%; top: 17.68%; width: 14.12%; height: 7.79%; transform: translate(-50%, -50%) rotate(-18deg); }
   .c-strip3 { left: 41.36%; top: 27.14%; width: 14.12%; height: 7.85%; transform: translate(-50%, -50%) rotate(-18deg); }
@@ -1085,10 +1088,10 @@
   .c-pola2 { left: 27.03%; top: 88.8%; width: 23.18%; height: 14.52%; transform: translate(-50%, -50%) rotate(-12.1deg); }
   .c-pola1 img { object-position: 50% 30%; }
   .c-pola2 img { object-position: 55% 40%; }
-  .c-green { position: absolute; left: 56%; top: 66.4%; width: 24.6%; height: 18.6%; transform: rotate(-1.2deg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.9cqw; text-align: center; color: #4b4640; }
-  .c-green .letter-text p { font-size: 2.02cqw; line-height: 1.62; letter-spacing: 0.02em; white-space: nowrap; text-shadow: none; }
-  .c-rule { width: 9cqw; height: 1px; background: #b7a99a; }
-  .c-names { margin: 0; display: flex; flex-direction: column; align-items: center; font-family: var(--font-display); font-weight: 400; font-size: 3.2cqw; line-height: 1.25; letter-spacing: 0.2em; padding-left: 0.2em; color: #3f3b36; }
+  .c-green { position: absolute; left: 69.4%; top: 75%; width: 24%; height: 18.5%; transform: translate(-50%, -50%) rotate(3.5deg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.9cqw; text-align: center; color: #4b4640; }
+  .c-green .letter-text p { font-size: 2.06cqw; line-height: 1.66; letter-spacing: 0.02em; white-space: nowrap; text-shadow: none; }
+  .c-rule { width: 9cqw; height: 1px; background: #b7a99a; margin-block: 2.2cqw 3.6cqw; }
+  .c-names { margin: 0; display: flex; flex-direction: column; align-items: center; font-family: var(--font-display); font-weight: 400; font-size: 2.7cqw; line-height: 1.3; letter-spacing: 0.2em; padding-left: 0.2em; color: #3f3b36; }
   .c-names i { font-family: var(--font-latin); color: #b98a92; font-size: 0.9em; letter-spacing: 0; margin: -0.1em 0; }
   .c-green .line { margin: 0; font-size: 2.75cqw; line-height: 1.15; max-width: none; white-space: nowrap; color: #6f7d5e; text-shadow: none; }
   .c-green .line-zh { font-size: 1.9cqw; letter-spacing: 0.3em; padding-left: 0.3em; text-shadow: none; }
@@ -1127,18 +1130,11 @@
   .s-water .unit, .s-bow .way { background: rgba(255, 250, 248, 0.55); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
   .s-water .unit { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75), 0 6px 14px -10px rgba(120, 60, 70, 0.4); }
 
-  /* 粉色雕花相框：照片墊在框下，只露出框內的形狀 */
-  .ornate { position: relative; width: min(96%, 410px); margin-top: 6px; isolation: isolate; -webkit-transform: translateZ(0); transform: translateZ(0); }
-  .ornate .shot { position: absolute; padding: 0; border: 0; -webkit-transform: translateZ(0); transform: translateZ(0); -webkit-backface-visibility: hidden; backface-visibility: hidden; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
-  .ornate-frame { position: relative; display: block; width: 100%; height: auto; pointer-events: none; }
-  .ornate-oval { aspect-ratio: 392 / 510; }
-  .ornate-oval .shot { left: 18.88%; top: 20.98%; width: 62.76%; height: 60%; -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAEyCAYAAADJHC3eAAAFHElEQVR42u3cUVLjMBAEUHmK+18ZDsBPoJxY3XrvAFuJPE2P7YVrkeJ7k89xuRT7c5EE2uwINoeE1ow5dATavDlogcbcOWAhNoc4UIE2kzhEgTabDg9hNqsOS6Axrw5KoDG3DkigMb8ORpjNsENBqM2ywxBozLODEGjM9buNGRBq11SwDQCurZXFRceca2yhxjUXbBcY196KItQcM/sj1CDYQo25sI64cMiBxhZqzIufVAKNPHR/EYFGJvyXUuguiXEhoG+mxgWAvtkaBw99M+YeGwrDfTls6MvLCDX0zd44WOibQffYUBjucZiw/NqmUMP+MzkOEPpm0z02LO/l/DSEgBxpbCgsoXFQYIUQagjI1Ag1LO+xgf3LaRwI9M2yxgaruLaGhJkeoYa+2baKQ2G4R1tD35yPUMPy8EyoYf+Zd48NheH+0tRgFQcCym20NWhsQLC1NazSXwoXavhw/kaowSoOBBSfYIPGBhJae9xfQ1+4R6jBKg4ElOFoa9DYQEBrj7YGjS3UENDaVnHQ2MBJwbaGw0bruMYGjQ2cEmxrOGy2jmts0NjaGhJaW2ODxgbag20NB40NfKpABRs0tjUcElpbY4PG1taQ0NoaGzQ2INjAI+v4uL+GsxtbqCGkta3i4B4baAq2NRw0NvDkfbZgg8YGWoLt/hrC1vERarCKA4INCDZwy322YIPGBtKD7Yk4hK7jGhus4kBysK3hoLEBwQYEGxBsEOzlwRlobGBt/59UBBs0NpDQ2oINGhtIDLYn4qCxAcEGBBsQbECwQbABwQYEGxBsQLBBsAHBBgQbEGxg/eePLQg2aGxAsAHBBu4Ptj+LBBobEGxgfeqV11jDQWMDAa0t2KCxAcEGHgu2B2egsQHBBgQbEGxAsEGwAcEGBBsQbECwQbABwQYEGxBsQLABwQbBBiJdgg0aG9i9rQUbNDaQFOzLMYDGBgQbEGzgtmC7zwaNDaxN32ELNhzQ2NZxsIoDgg0INiDYgGCDYAOCDQg2INiAYINgA4INCDbwVLD9hhes7N/F1thgFQcS2lqwQWMDgg0INiDYwB+D7V02rNwn4hobrOJAerCt46CxgV3urwUbDmxs6zhYxQHBBt5yfy3YoLEBwQYeWcNfCbYn41Da2MINVnFAsAHBBgQb1mlPxAUbNDaQ0NZ/CbZXXqCxAcEGbt2a513/MKCxgQeDrbVh8zVcY0NhqAUbrOLWcfDwDIgLttaGTe+vNTYUhlqwwSpuHYeEttbYoLGBU4JtHYfN1nCNDYWhFmywilvHIaGt72xs4QZPxQHBBmu4YMPJoRZs8NPiZd+OFZ596KyxYXl4BhwabO+04eGcaGwoC7Vgg1XcOg4p2Zj0LwD89uUIoKepP3WPrbXBe2zQ1oINQv1YsK3jCLXGBlKCrbXR1hobhDol2FobNDZo67QP4a+sINQaG4Q6IdjutxFqjQ2kBFtro61LG1u4EerSVVy4wT02aOu0D+f9NkKtsUGokz6k5kZeChvbAzXMZOkqLtyYxdJ7bOHGDJY+PBNuzJ6n4qBQ0j68p+XIhMaG5b+U+mmKthZsh49QC7aLgHnyhZYHapj/kx+eaW/MTfmX094og9IvKNwcv921flHh5ujbtXEhEWpfWnNjtn15AcdcW8VBqB2CBscsOwzhNsNWcQOBa+hgNDjm1gEJOGbWIQk3ZtVhCbqZXB6eYdgwsGhvc+hABR3zZhVHqHHYmtxc4QIIujmyimP4hTrVD8tlkzUTmouFAAAAAElFTkSuQmCC"); mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAEyCAYAAADJHC3eAAAFHElEQVR42u3cUVLjMBAEUHmK+18ZDsBPoJxY3XrvAFuJPE2P7YVrkeJ7k89xuRT7c5EE2uwINoeE1ow5dATavDlogcbcOWAhNoc4UIE2kzhEgTabDg9hNqsOS6Axrw5KoDG3DkigMb8ORpjNsENBqM2ywxBozLODEGjM9buNGRBq11SwDQCurZXFRceca2yhxjUXbBcY196KItQcM/sj1CDYQo25sI64cMiBxhZqzIufVAKNPHR/EYFGJvyXUuguiXEhoG+mxgWAvtkaBw99M+YeGwrDfTls6MvLCDX0zd44WOibQffYUBjucZiw/NqmUMP+MzkOEPpm0z02LO/l/DSEgBxpbCgsoXFQYIUQagjI1Ag1LO+xgf3LaRwI9M2yxgaruLaGhJkeoYa+2baKQ2G4R1tD35yPUMPy8EyoYf+Zd48NheH+0tRgFQcCym20NWhsQLC1NazSXwoXavhw/kaowSoOBBSfYIPGBhJae9xfQ1+4R6jBKg4ElOFoa9DYQEBrj7YGjS3UENDaVnHQ2MBJwbaGw0bruMYGjQ2cEmxrOGy2jmts0NjaGhJaW2ODxgbag20NB40NfKpABRs0tjUcElpbY4PG1taQ0NoaGzQ2INjAI+v4uL+GsxtbqCGkta3i4B4baAq2NRw0NvDkfbZgg8YGWoLt/hrC1vERarCKA4INCDZwy322YIPGBtKD7Yk4hK7jGhus4kBysK3hoLEBwQYEGxBsEOzlwRlobGBt/59UBBs0NpDQ2oINGhtIDLYn4qCxAcEGBBsQbECwQbABwQYEGxBsQLBBsAHBBgQbEGxg/eePLQg2aGxAsAHBBu4Ptj+LBBobEGxgfeqV11jDQWMDAa0t2KCxAcEGHgu2B2egsQHBBgQbEGxAsEGwAcEGBBsQbECwQbABwQYEGxBsQLABwQbBBiJdgg0aG9i9rQUbNDaQFOzLMYDGBgQbEGzgtmC7zwaNDaxN32ELNhzQ2NZxsIoDgg0INiDYgGCDYAOCDQg2INiAYINgA4INCDbwVLD9hhes7N/F1thgFQcS2lqwQWMDgg0INiDYwB+D7V02rNwn4hobrOJAerCt46CxgV3urwUbDmxs6zhYxQHBBt5yfy3YoLEBwQYeWcNfCbYn41Da2MINVnFAsAHBBgQb1mlPxAUbNDaQ0NZ/CbZXXqCxAcEGbt2a513/MKCxgQeDrbVh8zVcY0NhqAUbrOLWcfDwDIgLttaGTe+vNTYUhlqwwSpuHYeEttbYoLGBU4JtHYfN1nCNDYWhFmywilvHIaGt72xs4QZPxQHBBmu4YMPJoRZs8NPiZd+OFZ596KyxYXl4BhwabO+04eGcaGwoC7Vgg1XcOg4p2Zj0LwD89uUIoKepP3WPrbXBe2zQ1oINQv1YsK3jCLXGBlKCrbXR1hobhDol2FobNDZo67QP4a+sINQaG4Q6IdjutxFqjQ2kBFtro61LG1u4EerSVVy4wT02aOu0D+f9NkKtsUGokz6k5kZeChvbAzXMZOkqLtyYxdJ7bOHGDJY+PBNuzJ6n4qBQ0j68p+XIhMaG5b+U+mmKthZsh49QC7aLgHnyhZYHapj/kx+eaW/MTfmX094og9IvKNwcv921flHh5ujbtXEhEWpfWnNjtn15AcdcW8VBqB2CBscsOwzhNsNWcQOBa+hgNDjm1gEJOGbWIQk3ZtVhCbqZXB6eYdgwsGhvc+hABR3zZhVHqHHYmtxc4QIIujmyimP4hTrVD8tlkzUTmouFAAAAAElFTkSuQmCC"); }
-  .ornate-shield { aspect-ratio: 393 / 529; }
-  .ornate-shield .shot { left: 13.99%; top: 21.55%; width: 71.5%; height: 61.81%; -webkit-mask-image: url("data:image/png;base64,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"); mask-image: url("data:image/png;base64,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"); }
-  .ornate-arch { aspect-ratio: 398 / 567; width: min(92%, 390px); }
-  .ornate-arch .shot { left: 22.36%; top: 17.81%; width: 54.27%; height: 69.14%; -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANgAAAGICAYAAAAj2S6uAAAEOklEQVR42u3cQXLbMAxAURGT+18ZWWfhjGwTlCC+t+x0YVP8Bhk3HQdn5Mm/NywVNkRNXNYVG6EwKuuLDTAxns7rn/bdGuEzZrvY04ecT5IdH+jYeA2GwETV+Xmk/egNOYLMfy5pX3ojgpr7fNIaePHCmv+s0s8LvGhx1TwvHzRerLDYb++GuHCCEZi4aLknhgXEkXHPCSYu2u+XYbEwzer8CAv2OCKKi8ftpWExcFR87gsQF4/e537hEkdGv7IOPfd7iAuT7DmBiYutIgtxIbL+Z1JxseW9LMSFadY3MHGxdWS+B4PCyML0Av/RJbTsIsQFh3+LCB3vY2F6Qd1eDnHB/Y+I4sIUcweDtZGF6QX3PSKKC1PMERGuiSxML/BFMwgMHBPnBOZ4CEWBiQtTzBER+k0w0wve6MAEg8LIBAZ+TA89p1i4f0FdZCEucEQEgQECg2X3sHD/grrITDC48IhoeoE7GNzzmBimF5hgIDDg78lPYHDBBHP/gglTzASDxRPM9AI/5ACBgcCANYG5f4EJBgIDgVkCOMq+bA73LzDBQGCAwGDZPSzcv8AEA4EBAgOBgcAAgYHAQGDAu4H5khlMMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCA4EBAgOBgcAAgYHAAIGBwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDAQGCAwEBggMBAYCAwQGAgOBAQIDgYHAAIGBwEBggMBAYCAwQGAgMEBgIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgOBAQIDgQECA4GBwACBgcBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCAwQGAgMBAYIDAQGAgMEBgIDgQECA4GBwACBgcBAYIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDBAYCA4EBAgOBgcAAgYHAQGCAwEBgIDBAYCAwEBggMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCA4EBAgOBgcAAgYHAAIGBwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDAQGCAwEBggMBAYCAwQGAgOBAQIDgYHAAIGBwEBggMBAYCAwQGAgMEBgIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgOBAQIDgYHALAEIDAQGCAwEBgIDBAYCA4EBAgOBgcAAgYHAQGCAwEBgIDBAYCAwQGAgMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCA4EBAgOBAQIDgYHAAIGBwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDBAYCAwEBggMBAYCAwQGAgOBAQIDgYHAAIGBwEBggMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgMEBgIDgQH/BTYsA5hg0M0QGCyYYI6JUDHCXvx5Whr4vqUzkystFDeVd98bo9GbExRX7cuP98gvFMlhwBOZa3gAAAAASUVORK5CYII="); mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANgAAAGICAYAAAAj2S6uAAAEOklEQVR42u3cQXLbMAxAURGT+18ZWWfhjGwTlCC+t+x0YVP8Bhk3HQdn5Mm/NywVNkRNXNYVG6EwKuuLDTAxns7rn/bdGuEzZrvY04ecT5IdH+jYeA2GwETV+Xmk/egNOYLMfy5pX3ojgpr7fNIaePHCmv+s0s8LvGhx1TwvHzRerLDYb++GuHCCEZi4aLknhgXEkXHPCSYu2u+XYbEwzer8CAv2OCKKi8ftpWExcFR87gsQF4/e537hEkdGv7IOPfd7iAuT7DmBiYutIgtxIbL+Z1JxseW9LMSFadY3MHGxdWS+B4PCyML0Av/RJbTsIsQFh3+LCB3vY2F6Qd1eDnHB/Y+I4sIUcweDtZGF6QX3PSKKC1PMERGuiSxML/BFMwgMHBPnBOZ4CEWBiQtTzBER+k0w0wve6MAEg8LIBAZ+TA89p1i4f0FdZCEucEQEgQECg2X3sHD/grrITDC48IhoeoE7GNzzmBimF5hgIDDg78lPYHDBBHP/gglTzASDxRPM9AI/5ACBgcCANYG5f4EJBgIDgVkCOMq+bA73LzDBQGCAwGDZPSzcv8AEA4EBAgOBgcAAgYHAQGDAu4H5khlMMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCA4EBAgOBgcAAgYHAAIGBwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDAQGCAwEBggMBAYCAwQGAgOBAQIDgYHAAIGBwEBggMBAYCAwQGAgMEBgIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgOBAQIDgQECA4GBwACBgcBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCAwQGAgMBAYIDAQGAgMEBgIDgQECA4GBwACBgcBAYIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDBAYCA4EBAgOBgcAAgYHAQGCAwEBgIDBAYCAwEBggMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCA4EBAgOBgcAAgYHAAIGBwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDAQGCAwEBggMBAYCAwQGAgOBAQIDgYHAAIGBwEBggMBAYCAwQGAgMEBgIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgOBAQIDgYHALAEIDAQGCAwEBgIDBAYCA4EBAgOBgcAAgYHAQGCAwEBgIDBAYCAwQGAgMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCA4EBAgOBAQIDgYHAAIGBwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDBAYCAwEBggMBAYCAwQGAgOBAQIDgYHAAIGBwEBggMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgMEBgIDgQH/BTYsA5hg0M0QGCyYYI6JUDHCXvx5Whr4vqUzkystFDeVd98bo9GbExRX7cuP98gvFMlhwBOZa3gAAAAASUVORK5CYII="); }
-  .ornate-shield .shot { background: linear-gradient(180deg, #b0ccd8, #b6cfdb); }
-  .ornate-shield .shot img { position: absolute; left: -44%; bottom: 0; width: 165%; max-width: none; height: auto; object-fit: fill; }
+  /* 粉色雕花相框：照片已預先嵌進相框合成成一張圖，形狀完全吻合 */
+  .ornate { position: relative; width: min(96%, 410px); margin-top: 6px; }
+  .ornate-arch { width: min(92%, 390px); }
+  .ornate .shot { display: block; width: 100%; padding: 0; border: 0; background: none; overflow: visible; }
+  .ornate .shot img { width: 100%; height: auto; object-fit: initial; }
 
   /* —— 第五段：粉色蝴蝶結牆（地點、永遠始於今日） —— */
   .s-bow { --scene-bg: url("flora/bow-tile.webp") center top / 100% auto repeat-y, #d9bfbb; --sage-deep: #8c5263; --ink-soft: #7d5f66; --rose: #b97b88; --ink: #4f3f44; --lace: #d8aeb6; color: var(--ink); padding-block: calc(var(--seam) + 8px) calc(var(--seam) + 24px); }
@@ -1423,8 +1419,7 @@
     <p class="date-sub">星期六　晚宴 18:00 開席</p>
     <p class="invite-line">誠摯邀請您見證我們的幸福時刻</p>
     <div class="ornate ornate-oval">
-      <button class="shot zoomable" type="button" aria-label="放大照片"><img src="photos/thumb-01.webp" data-full="photos/photo-01.jpg" decoding="async" loading="lazy" alt="博翔與虹潔的婚紗照" width="933" height="1400"></button>
-      <img class="ornate-frame" src="flora/frame-oval.webp" alt="" width="392" height="510" loading="lazy">
+      <button class="shot zoomable" type="button" aria-label="放大照片"><img src="flora/framed-oval-v2.webp" data-full="photos/photo-01.jpg" decoding="async" loading="lazy" alt="博翔與虹潔的婚紗照，粉色雕花相框" width="896" height="1157"></button>
     </div>
 
     <div class="seam-orn" aria-hidden="true"><span></span><b>♥</b><span></span></div>
@@ -1441,8 +1436,7 @@
     </div>
     <p class="married" id="married" hidden>今天，我們結婚了 ♡</p>
     <div class="ornate ornate-shield">
-      <button class="shot zoomable" type="button" aria-label="放大照片"><img src="photos/thumb-16.webp" data-full="photos/photo-16.jpg" decoding="async" loading="lazy" alt="博翔與虹潔的婚紗照" width="1400" height="933"></button>
-      <img class="ornate-frame" src="flora/frame-shield.webp" alt="" width="393" height="529" loading="lazy">
+      <button class="shot zoomable" type="button" aria-label="放大照片"><img src="flora/framed-shield-v2.webp" data-full="photos/photo-16.jpg" decoding="async" loading="lazy" alt="博翔與虹潔的婚紗照，粉色雕花相框" width="880" height="1183"></button>
     </div>
 
     <div class="seam-orn" aria-hidden="true"><span></span><b>♥</b><span></span></div>
@@ -1487,9 +1481,8 @@
 
     <div class="interlude-block" aria-label="永遠始於今日">
       <div class="ornate ornate-arch">
-        <button class="shot zoomable" type="button" aria-label="放大照片"><img src="photos/thumb-17.webp" data-full="photos/photo-17.jpg" decoding="async" loading="lazy" alt="博翔與虹潔的婚紗照" width="933" height="1400"></button>
-        <img class="ornate-frame" src="flora/frame-arch.webp" alt="" width="398" height="567" loading="lazy">
-      </div>
+      <button class="shot zoomable" type="button" aria-label="放大照片"><img src="flora/framed-arch-v2.webp" data-full="photos/photo-17.jpg" decoding="async" loading="lazy" alt="博翔與虹潔的婚紗照，粉色雕花相框" width="864" height="1240"></button>
+    </div>
       <p class="line">Forever Starts Today</p>
       <p class="line-zh">永遠始於今日。</p>
     </div>
@@ -1498,11 +1491,11 @@
 
 <section class="scene s-dress" aria-labelledby="h-dress">
   <h2 class="sr-only" id="h-dress">Dress Code</h2>
-  <img class="scene-img" src="flora/dresscode.webp" alt="Dress Code：奶茶色、淺黃色、淺藍色、棕色" width="808" height="1248" loading="lazy">
+  <img class="scene-img" src="flora/dresscode-v2.webp" alt="Dress Code：奶茶色、淺黃色、淺藍色、棕色" width="788" height="1233" loading="lazy">
 </section>
 
 <footer class="scene s-ending">
-  <img class="scene-img" src="flora/ending.webp" alt="Forever Starts Today　鄒博翔 &amp; 王虹潔　2026.12.12" width="926" height="1160" loading="lazy">
+  <img class="scene-img" src="flora/ending-v2.webp" alt="Forever Starts Today　鄒博翔 &amp; 王虹潔　2026.12.12" width="923" height="1152" loading="lazy">
 </footer>
 
 </main>
