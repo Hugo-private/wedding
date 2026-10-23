@@ -1030,35 +1030,37 @@
   }
   .hero.cover .script, .hero.cover .names-line, .hero-date { text-shadow: 0 0 14px rgba(255, 252, 246, 0.9); }
   .envelope.cut-env { width: min(104%, 440px); aspect-ratio: 1100 / 724; margin-inline: -2%; perspective: none; }
-  /* 信封拆成幾層：信封內裡、信卡、信封袋、封口蓋（可翻開）、花束；點擊後封口往上翻、信卡滑出 */
-  .cut-env { position: relative; container-type: inline-size; perspective: 1400px; filter: drop-shadow(0 18px 18px rgba(110, 80, 60, 0.22)) drop-shadow(0 2px 3px rgba(110, 80, 60, 0.18)); }
-  .cut-env > img, .env-flap, .env-flap > *, .env-inner { position: absolute; inset: 0; width: 100%; height: 100%; display: block; max-width: none; }
-  .env-inner { left: 7%; top: 9.2%; width: 92.8%; height: 81.4%; background: linear-gradient(180deg, #e3d9cc, #f3ede5 70%); box-shadow: inset 0 10px 18px -8px rgba(110, 80, 60, 0.35); z-index: 1; }
-  .env-letter {
-    position: absolute; left: 20%; width: 66%; top: 15%; height: 70%; z-index: 2;
-    box-sizing: border-box; padding: 6cqw 4cqw 0;
-    display: flex; flex-direction: column; align-items: center; gap: 1.6cqw; text-align: center;
-    background: var(--grain) 0 0 / 240px 240px, #fffdf9; background-blend-mode: multiply, normal;
-    box-shadow: 0 2px 8px rgba(110, 80, 60, 0.18);
-    transition: transform 1.1s cubic-bezier(0.3, 0.8, 0.3, 1) 0.75s;
+  /* 開場轉場：點信封後封蠟亮起，柔和白光從封蠟漫開蓋滿畫面，光散去後進入內頁 */
+  .cut-env { position: relative; }
+  .cut-env > img { width: 100%; height: 100%; display: block; filter: drop-shadow(0 18px 18px rgba(110, 80, 60, 0.22)) drop-shadow(0 2px 3px rgba(110, 80, 60, 0.18)); }
+  .seal-glow {
+    position: absolute; left: 55.6%; top: 59.6%; width: 24%; aspect-ratio: 1;
+    border-radius: 50%; pointer-events: none; opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+    background: radial-gradient(circle, rgba(255, 252, 248, 0.98) 0%, rgba(255, 228, 232, 0.8) 28%, rgba(244, 190, 200, 0.38) 52%, rgba(244, 190, 200, 0) 72%);
   }
-  .env-letter p { margin: 0; }
-  .l-cap { font-family: var(--font-script); font-size: 6.4cqw; line-height: 1.1; color: #8a6a5e; -webkit-text-stroke: 0.3px currentColor; }
-  .l-names { font-family: var(--font-display); font-weight: 600; font-size: 4.1cqw; letter-spacing: 0.18em; padding-left: 0.18em; color: #3a332c; white-space: nowrap; }
-  .l-names i { font-family: var(--font-latin); color: #c58c93; margin-inline: 0.15em; }
-  .l-rule { width: 18cqw; height: 1px; background: #d8c3b8; }
-  .l-date { font-family: var(--font-latin); font-weight: 600; font-size: 4cqw; letter-spacing: 0.2em; color: #6b5a4f; }
-  .env-pocket { z-index: 3; -webkit-clip-path: polygon(0% 0%, 6% 0%, 6% 20%, 56% 75.5%, 100% 22%, 100% 100%, 0% 100%); clip-path: polygon(0% 0%, 6% 0%, 6% 20%, 56% 75.5%, 100% 22%, 100% 100%, 0% 100%); }
-  .env-flap { z-index: 4; transform-origin: 50% 9.2%; transform-style: preserve-3d; transition: transform 0.9s cubic-bezier(0.5, 0, 0.3, 1) 0.15s, z-index 0s 0.55s; }
-  .env-flap > img, .flap-back { -webkit-clip-path: polygon(6% 9.2%, 100% 9.2%, 100% 22%, 56% 75.5%, 6% 20%); clip-path: polygon(6% 9.2%, 100% 9.2%, 100% 22%, 56% 75.5%, 6% 20%); -webkit-backface-visibility: hidden; backface-visibility: hidden; }
-  .flap-back { background: linear-gradient(180deg, #f6f2ec, #e8dfd3); transform: rotateX(180deg); }
-  .env-bouquet { z-index: 5; pointer-events: none; -webkit-clip-path: polygon(0% 0%, 26% 0%, 30% 8%, 34% 22%, 36% 40%, 35% 58%, 30% 72%, 24% 100%, 0% 100%); clip-path: polygon(0% 0%, 26% 0%, 30% 8%, 34% 22%, 36% 40%, 35% 58%, 30% 72%, 24% 100%, 0% 100%); }
-  .hero.open .env-flap { transform: rotateX(180deg); z-index: 1; }
-  .hero.open .env-letter { transform: translateY(-46%); }
-  .hero.open .cut-env { animation: none; }
+  .cover-light {
+    position: absolute; left: 55.6%; top: 59.6%; width: 320vmax; height: 320vmax;
+    border-radius: 50%; pointer-events: none; z-index: 2;
+    transform: translate(-50%, -50%) scale(0);
+    background: radial-gradient(circle, #fffdf9 0%, #fffbf6 42%, rgba(255, 249, 243, 0.92) 52%, rgba(255, 249, 243, 0) 70%);
+  }
+  .hero.open .seal-glow { animation: sealGlow 1.2s ease-out forwards; }
+  .hero.open .cover-light { animation: bloom 1.5s cubic-bezier(0.55, 0, 0.35, 1) 0.45s forwards; }
+  @keyframes sealGlow {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+    35% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    60% { opacity: 0.85; transform: translate(-50%, -50%) scale(0.9); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(2.6); }
+  }
+  @keyframes bloom { to { transform: translate(-50%, -50%) scale(1); } }
+  .hero.open .hero-foot { opacity: 0; transition: opacity 0.5s; }
+  .hero.open .hero-title { transition: opacity 0.6s 0.3s; }
+  .cover.leaving { transform: none; transition: opacity 1.1s ease; }
   @media (prefers-reduced-motion: no-preference) {
     .hero:not(.open) .cut-env { animation: float 4.5s ease-in-out infinite alternate; }
     @keyframes float { to { transform: translateY(-6px) rotate(-0.6deg); } }
+  }
   }
 
   /* —— 第一段：拼貼開場 —— */
@@ -1079,9 +1081,10 @@
   .c-record[aria-pressed="true"]::after { animation: ring 2.2s ease-out infinite; }
   @keyframes ring { 0% { box-shadow: 0 0 0 0 rgba(239, 196, 203, 0.75); } 100% { box-shadow: 0 0 0 4cqw rgba(239, 196, 203, 0); } }
   .c-record:focus-visible { outline: 2px solid #b98a92; outline-offset: 2px; }
-  .c-pola1 { left: 69.23%; top: 52.3%; width: 22.92%; height: 12.53%; transform: translate(-50%, -50%) rotate(7.5deg); }
-  .c-pola2 { left: 26.65%; top: 87.81%; width: 23.18%; height: 12.5%; transform: translate(-50%, -50%) rotate(-12.1deg); }
-  .c-pola1 img { object-position: 50% 25%; }
+  .c-pola1 { left: 68.97%; top: 53.42%; width: 22.92%; height: 14.79%; transform: translate(-50%, -50%) rotate(7.5deg); }
+  .c-pola2 { left: 27.03%; top: 88.8%; width: 23.18%; height: 14.52%; transform: translate(-50%, -50%) rotate(-12.1deg); }
+  .c-pola1 img { object-position: 50% 30%; }
+  .c-pola2 img { object-position: 55% 40%; }
   .c-green { position: absolute; left: 56%; top: 66.4%; width: 24.6%; height: 18.6%; transform: rotate(-1.2deg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.9cqw; text-align: center; color: #4b4640; }
   .c-green .letter-text p { font-size: 2.02cqw; line-height: 1.62; letter-spacing: 0.02em; white-space: nowrap; text-shadow: none; }
   .c-rule { width: 9cqw; height: 1px; background: #b7a99a; }
@@ -1099,6 +1102,9 @@
   .f-label .role { margin: 0; font-size: 10cqw; line-height: 1; color: #3e5672; text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); }
   .f-label .who { margin: 0.6cqw 0 0; font-size: 3.2cqw; letter-spacing: 0.3em; padding-left: 0.3em; color: #3d4650; text-shadow: 0 0 8px rgba(255, 255, 255, 0.95); }
   .f-label-bride { left: 77%; top: 38.7%; width: 40%; }
+  .f-vow { position: absolute; left: 48.5%; top: 52.2%; width: 64%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 1cqw; text-align: center; }
+  .f-vow .line { margin: 0; max-width: none; font-size: 4.6cqw; line-height: 1.15; color: #34506e; white-space: nowrap; text-shadow: 0 0 10px rgba(255, 255, 255, 0.95), 0 0 3px rgba(255, 255, 255, 0.9); }
+  .f-vow .line-zh { font-size: 2.5cqw; letter-spacing: 0.4em; padding-left: 0.4em; color: #36404b; text-shadow: 0 0 8px rgba(255, 255, 255, 0.95); }
   .f-label-groom { left: 21%; top: 93.2%; width: 40%; }
 
   /* —— 第三段：霧藍緞面（我們的故事＋你是我的歸屬） —— */
@@ -1122,8 +1128,8 @@
   .s-water .unit { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75), 0 6px 14px -10px rgba(120, 60, 70, 0.4); }
 
   /* 粉色雕花相框：照片墊在框下，只露出框內的形狀 */
-  .ornate { position: relative; width: min(96%, 410px); margin-top: 6px; filter: drop-shadow(0 10px 14px rgba(120, 70, 75, 0.25)); }
-  .ornate .shot { position: absolute; padding: 0; border: 0; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+  .ornate { position: relative; width: min(96%, 410px); margin-top: 6px; isolation: isolate; -webkit-transform: translateZ(0); transform: translateZ(0); }
+  .ornate .shot { position: absolute; padding: 0; border: 0; -webkit-transform: translateZ(0); transform: translateZ(0); -webkit-backface-visibility: hidden; backface-visibility: hidden; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
   .ornate-frame { position: relative; display: block; width: 100%; height: auto; pointer-events: none; }
   .ornate-oval { aspect-ratio: 392 / 510; }
   .ornate-oval .shot { left: 18.88%; top: 20.98%; width: 62.76%; height: 60%; -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAEyCAYAAADJHC3eAAAFHElEQVR42u3cUVLjMBAEUHmK+18ZDsBPoJxY3XrvAFuJPE2P7YVrkeJ7k89xuRT7c5EE2uwINoeE1ow5dATavDlogcbcOWAhNoc4UIE2kzhEgTabDg9hNqsOS6Axrw5KoDG3DkigMb8ORpjNsENBqM2ywxBozLODEGjM9buNGRBq11SwDQCurZXFRceca2yhxjUXbBcY196KItQcM/sj1CDYQo25sI64cMiBxhZqzIufVAKNPHR/EYFGJvyXUuguiXEhoG+mxgWAvtkaBw99M+YeGwrDfTls6MvLCDX0zd44WOibQffYUBjucZiw/NqmUMP+MzkOEPpm0z02LO/l/DSEgBxpbCgsoXFQYIUQagjI1Ag1LO+xgf3LaRwI9M2yxgaruLaGhJkeoYa+2baKQ2G4R1tD35yPUMPy8EyoYf+Zd48NheH+0tRgFQcCym20NWhsQLC1NazSXwoXavhw/kaowSoOBBSfYIPGBhJae9xfQ1+4R6jBKg4ElOFoa9DYQEBrj7YGjS3UENDaVnHQ2MBJwbaGw0bruMYGjQ2cEmxrOGy2jmts0NjaGhJaW2ODxgbag20NB40NfKpABRs0tjUcElpbY4PG1taQ0NoaGzQ2INjAI+v4uL+GsxtbqCGkta3i4B4baAq2NRw0NvDkfbZgg8YGWoLt/hrC1vERarCKA4INCDZwy322YIPGBtKD7Yk4hK7jGhus4kBysK3hoLEBwQYEGxBsEOzlwRlobGBt/59UBBs0NpDQ2oINGhtIDLYn4qCxAcEGBBsQbECwQbABwQYEGxBsQLBBsAHBBgQbEGxg/eePLQg2aGxAsAHBBu4Ptj+LBBobEGxgfeqV11jDQWMDAa0t2KCxAcEGHgu2B2egsQHBBgQbEGxAsEGwAcEGBBsQbECwQbABwQYEGxBsQLABwQbBBiJdgg0aG9i9rQUbNDaQFOzLMYDGBgQbEGzgtmC7zwaNDaxN32ELNhzQ2NZxsIoDgg0INiDYgGCDYAOCDQg2INiAYINgA4INCDbwVLD9hhes7N/F1thgFQcS2lqwQWMDgg0INiDYwB+D7V02rNwn4hobrOJAerCt46CxgV3urwUbDmxs6zhYxQHBBt5yfy3YoLEBwQYeWcNfCbYn41Da2MINVnFAsAHBBgQb1mlPxAUbNDaQ0NZ/CbZXXqCxAcEGbt2a513/MKCxgQeDrbVh8zVcY0NhqAUbrOLWcfDwDIgLttaGTe+vNTYUhlqwwSpuHYeEttbYoLGBU4JtHYfN1nCNDYWhFmywilvHIaGt72xs4QZPxQHBBmu4YMPJoRZs8NPiZd+OFZ596KyxYXl4BhwabO+04eGcaGwoC7Vgg1XcOg4p2Zj0LwD89uUIoKepP3WPrbXBe2zQ1oINQv1YsK3jCLXGBlKCrbXR1hobhDol2FobNDZo67QP4a+sINQaG4Q6IdjutxFqjQ2kBFtro61LG1u4EerSVVy4wT02aOu0D+f9NkKtsUGokz6k5kZeChvbAzXMZOkqLtyYxdJ7bOHGDJY+PBNuzJ6n4qBQ0j68p+XIhMaG5b+U+mmKthZsh49QC7aLgHnyhZYHapj/kx+eaW/MTfmX094og9IvKNwcv921flHh5ujbtXEhEWpfWnNjtn15AcdcW8VBqB2CBscsOwzhNsNWcQOBa+hgNDjm1gEJOGbWIQk3ZtVhCbqZXB6eYdgwsGhvc+hABR3zZhVHqHHYmtxc4QIIujmyimP4hTrVD8tlkzUTmouFAAAAAElFTkSuQmCC"); mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAEyCAYAAADJHC3eAAAFHElEQVR42u3cUVLjMBAEUHmK+18ZDsBPoJxY3XrvAFuJPE2P7YVrkeJ7k89xuRT7c5EE2uwINoeE1ow5dATavDlogcbcOWAhNoc4UIE2kzhEgTabDg9hNqsOS6Axrw5KoDG3DkigMb8ORpjNsENBqM2ywxBozLODEGjM9buNGRBq11SwDQCurZXFRceca2yhxjUXbBcY196KItQcM/sj1CDYQo25sI64cMiBxhZqzIufVAKNPHR/EYFGJvyXUuguiXEhoG+mxgWAvtkaBw99M+YeGwrDfTls6MvLCDX0zd44WOibQffYUBjucZiw/NqmUMP+MzkOEPpm0z02LO/l/DSEgBxpbCgsoXFQYIUQagjI1Ag1LO+xgf3LaRwI9M2yxgaruLaGhJkeoYa+2baKQ2G4R1tD35yPUMPy8EyoYf+Zd48NheH+0tRgFQcCym20NWhsQLC1NazSXwoXavhw/kaowSoOBBSfYIPGBhJae9xfQ1+4R6jBKg4ElOFoa9DYQEBrj7YGjS3UENDaVnHQ2MBJwbaGw0bruMYGjQ2cEmxrOGy2jmts0NjaGhJaW2ODxgbag20NB40NfKpABRs0tjUcElpbY4PG1taQ0NoaGzQ2INjAI+v4uL+GsxtbqCGkta3i4B4baAq2NRw0NvDkfbZgg8YGWoLt/hrC1vERarCKA4INCDZwy322YIPGBtKD7Yk4hK7jGhus4kBysK3hoLEBwQYEGxBsEOzlwRlobGBt/59UBBs0NpDQ2oINGhtIDLYn4qCxAcEGBBsQbECwQbABwQYEGxBsQLBBsAHBBgQbEGxg/eePLQg2aGxAsAHBBu4Ptj+LBBobEGxgfeqV11jDQWMDAa0t2KCxAcEGHgu2B2egsQHBBgQbEGxAsEGwAcEGBBsQbECwQbABwQYEGxBsQLABwQbBBiJdgg0aG9i9rQUbNDaQFOzLMYDGBgQbEGzgtmC7zwaNDaxN32ELNhzQ2NZxsIoDgg0INiDYgGCDYAOCDQg2INiAYINgA4INCDbwVLD9hhes7N/F1thgFQcS2lqwQWMDgg0INiDYwB+D7V02rNwn4hobrOJAerCt46CxgV3urwUbDmxs6zhYxQHBBt5yfy3YoLEBwQYeWcNfCbYn41Da2MINVnFAsAHBBgQb1mlPxAUbNDaQ0NZ/CbZXXqCxAcEGbt2a513/MKCxgQeDrbVh8zVcY0NhqAUbrOLWcfDwDIgLttaGTe+vNTYUhlqwwSpuHYeEttbYoLGBU4JtHYfN1nCNDYWhFmywilvHIaGt72xs4QZPxQHBBmu4YMPJoRZs8NPiZd+OFZ596KyxYXl4BhwabO+04eGcaGwoC7Vgg1XcOg4p2Zj0LwD89uUIoKepP3WPrbXBe2zQ1oINQv1YsK3jCLXGBlKCrbXR1hobhDol2FobNDZo67QP4a+sINQaG4Q6IdjutxFqjQ2kBFtro61LG1u4EerSVVy4wT02aOu0D+f9NkKtsUGokz6k5kZeChvbAzXMZOkqLtyYxdJ7bOHGDJY+PBNuzJ6n4qBQ0j68p+XIhMaG5b+U+mmKthZsh49QC7aLgHnyhZYHapj/kx+eaW/MTfmX094og9IvKNwcv921flHh5ujbtXEhEWpfWnNjtn15AcdcW8VBqB2CBscsOwzhNsNWcQOBa+hgNDjm1gEJOGbWIQk3ZtVhCbqZXB6eYdgwsGhvc+hABR3zZhVHqHHYmtxc4QIIujmyimP4hTrVD8tlkzUTmouFAAAAAElFTkSuQmCC"); }
@@ -1131,7 +1137,8 @@
   .ornate-shield .shot { left: 13.99%; top: 21.55%; width: 71.5%; height: 61.81%; -webkit-mask-image: url("data:image/png;base64,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"); mask-image: url("data:image/png;base64,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"); }
   .ornate-arch { aspect-ratio: 398 / 567; width: min(92%, 390px); }
   .ornate-arch .shot { left: 22.36%; top: 17.81%; width: 54.27%; height: 69.14%; -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANgAAAGICAYAAAAj2S6uAAAEOklEQVR42u3cQXLbMAxAURGT+18ZWWfhjGwTlCC+t+x0YVP8Bhk3HQdn5Mm/NywVNkRNXNYVG6EwKuuLDTAxns7rn/bdGuEzZrvY04ecT5IdH+jYeA2GwETV+Xmk/egNOYLMfy5pX3ojgpr7fNIaePHCmv+s0s8LvGhx1TwvHzRerLDYb++GuHCCEZi4aLknhgXEkXHPCSYu2u+XYbEwzer8CAv2OCKKi8ftpWExcFR87gsQF4/e537hEkdGv7IOPfd7iAuT7DmBiYutIgtxIbL+Z1JxseW9LMSFadY3MHGxdWS+B4PCyML0Av/RJbTsIsQFh3+LCB3vY2F6Qd1eDnHB/Y+I4sIUcweDtZGF6QX3PSKKC1PMERGuiSxML/BFMwgMHBPnBOZ4CEWBiQtTzBER+k0w0wve6MAEg8LIBAZ+TA89p1i4f0FdZCEucEQEgQECg2X3sHD/grrITDC48IhoeoE7GNzzmBimF5hgIDDg78lPYHDBBHP/gglTzASDxRPM9AI/5ACBgcCANYG5f4EJBgIDgVkCOMq+bA73LzDBQGCAwGDZPSzcv8AEA4EBAgOBgcAAgYHAQGDAu4H5khlMMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCA4EBAgOBgcAAgYHAAIGBwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDAQGCAwEBggMBAYCAwQGAgOBAQIDgYHAAIGBwEBggMBAYCAwQGAgMEBgIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgOBAQIDgQECA4GBwACBgcBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCAwQGAgMBAYIDAQGAgMEBgIDgQECA4GBwACBgcBAYIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDBAYCA4EBAgOBgcAAgYHAQGCAwEBgIDBAYCAwEBggMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCA4EBAgOBgcAAgYHAAIGBwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDAQGCAwEBggMBAYCAwQGAgOBAQIDgYHAAIGBwEBggMBAYCAwQGAgMEBgIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgOBAQIDgYHALAEIDAQGCAwEBgIDBAYCA4EBAgOBgcAAgYHAQGCAwEBgIDBAYCAwQGAgMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCA4EBAgOBAQIDgYHAAIGBwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDBAYCAwEBggMBAYCAwQGAgOBAQIDgYHAAIGBwEBggMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgMEBgIDgQH/BTYsA5hg0M0QGCyYYI6JUDHCXvx5Whr4vqUzkystFDeVd98bo9GbExRX7cuP98gvFMlhwBOZa3gAAAAASUVORK5CYII="); mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANgAAAGICAYAAAAj2S6uAAAEOklEQVR42u3cQXLbMAxAURGT+18ZWWfhjGwTlCC+t+x0YVP8Bhk3HQdn5Mm/NywVNkRNXNYVG6EwKuuLDTAxns7rn/bdGuEzZrvY04ecT5IdH+jYeA2GwETV+Xmk/egNOYLMfy5pX3ojgpr7fNIaePHCmv+s0s8LvGhx1TwvHzRerLDYb++GuHCCEZi4aLknhgXEkXHPCSYu2u+XYbEwzer8CAv2OCKKi8ftpWExcFR87gsQF4/e537hEkdGv7IOPfd7iAuT7DmBiYutIgtxIbL+Z1JxseW9LMSFadY3MHGxdWS+B4PCyML0Av/RJbTsIsQFh3+LCB3vY2F6Qd1eDnHB/Y+I4sIUcweDtZGF6QX3PSKKC1PMERGuiSxML/BFMwgMHBPnBOZ4CEWBiQtTzBER+k0w0wve6MAEg8LIBAZ+TA89p1i4f0FdZCEucEQEgQECg2X3sHD/grrITDC48IhoeoE7GNzzmBimF5hgIDDg78lPYHDBBHP/gglTzASDxRPM9AI/5ACBgcCANYG5f4EJBgIDgVkCOMq+bA73LzDBQGCAwGDZPSzcv8AEA4EBAgOBgcAAgYHAQGDAu4H5khlMMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCA4EBAgOBgcAAgYHAAIGBwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDAQGCAwEBggMBAYCAwQGAgOBAQIDgYHAAIGBwEBggMBAYCAwQGAgMEBgIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgOBAQIDgQECA4GBwACBgcBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCAwQGAgMBAYIDAQGAgMEBgIDgQECA4GBwACBgcBAYIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDBAYCA4EBAgOBgcAAgYHAQGCAwEBgIDBAYCAwEBggMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCA4EBAgOBgcAAgYHAAIGBwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDAQGCAwEBggMBAYCAwQGAgOBAQIDgYHAAIGBwEBggMBAYCAwQGAgMEBgIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgOBAQIDgYHALAEIDAQGCAwEBgIDBAYCA4EBAgOBgcAAgYHAQGCAwEBgIDBAYCAwQGAgMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCA4EBAgOBAQIDgYHAAIGBwEBggMBAYCAwQGAgMBAYIDAQGAgMEBgIDBAYCAwEBggMBAYCAwQGAgOBAQIDgYHAAIGBwEBggMBAYIDAQGAgMEBgIDAQGCAwEBgIDBAYCAwEBggMBAYCAwQGAgMEBgIDgQH/BTYsA5hg0M0QGCyYYI6JUDHCXvx5Whr4vqUzkystFDeVd98bo9GbExRX7cuP98gvFMlhwBOZa3gAAAAASUVORK5CYII="); }
-  .ornate-shield .shot img { object-position: 50% 45%; }
+  .ornate-shield .shot { background: linear-gradient(180deg, #b0ccd8, #b6cfdb); }
+  .ornate-shield .shot img { position: absolute; left: -44%; bottom: 0; width: 165%; max-width: none; height: auto; object-fit: fill; }
 
   /* —— 第五段：粉色蝴蝶結牆（地點、永遠始於今日） —— */
   .s-bow { --scene-bg: url("flora/bow-tile.webp") center top / 100% auto repeat-y, #d9bfbb; --sage-deep: #8c5263; --ink-soft: #7d5f66; --rose: #b97b88; --ink: #4f3f44; --lace: #d8aeb6; color: var(--ink); padding-block: calc(var(--seam) + 8px) calc(var(--seam) + 24px); }
@@ -1324,19 +1331,9 @@
     </div>
 
     <div class="envelope cut-env" id="envelope" role="button" tabindex="0" aria-label="開啟信封" aria-expanded="false">
-      <div class="env-inner" aria-hidden="true"></div>
-      <div class="env-letter" aria-hidden="true">
-        <p class="l-cap">Save the Date</p>
-        <p class="l-names">鄒博翔<i>&amp;</i>王虹潔</p>
-        <span class="l-rule"></span>
-        <p class="l-date">2026 . 12 . 12</p>
-      </div>
-      <img class="env-pocket" src="flora/envelope-cut.webp" alt="白色信封，粉色 JS 封蠟與火鶴花束" width="1100" height="724" fetchpriority="high">
-      <div class="env-flap" aria-hidden="true">
-        <img src="flora/envelope-cut.webp" alt="" width="1100" height="724">
-        <span class="flap-back"></span>
-      </div>
-      <img class="env-bouquet" src="flora/envelope-cut.webp" alt="" width="1100" height="724" aria-hidden="true">
+      <img src="flora/envelope-cut.webp" alt="白色信封，粉色 JS 封蠟與火鶴花束" width="1100" height="724" fetchpriority="high">
+      <span class="seal-glow" aria-hidden="true"></span>
+      <span class="cover-light" aria-hidden="true"></span>
     </div>
 
     <div class="hero-foot">
@@ -1369,8 +1366,6 @@
       <div class="letter-text"><p>人生有三萬多個日子，<br>謝謝你願意在這一天，<br>為我們而來。</p></div>
       <span class="c-rule" aria-hidden="true"></span>
       <h1 class="c-names">鄒博翔<i>&amp;</i>王虹潔</h1>
-      <p class="line">A Love Beyond Time</p>
-      <p class="line-zh">愛超越時間。</p>
     </div>
   </div>
 </header>
@@ -1379,6 +1374,7 @@
   <div class="art art-couple">
     <button class="a-photo f-bride zoomable" type="button" aria-label="放大照片"><img src="photos/thumb-03.webp" data-full="photos/photo-03.jpg" decoding="async" loading="lazy" alt="博翔與虹潔的婚紗照" width="933" height="1400"></button>
     <div class="f-label f-label-bride"><p class="role">Bride</p><p class="who">王虹潔</p></div>
+    <div class="f-vow"><p class="line">A Love Beyond Time</p><p class="line-zh">愛超越時間。</p></div>
     <button class="a-photo f-groom zoomable" type="button" aria-label="放大照片"><img src="photos/thumb-12.webp" data-full="photos/photo-12.jpg" decoding="async" loading="lazy" alt="博翔與虹潔的婚紗照" width="933" height="1400"></button>
     <div class="f-label f-label-groom"><p class="role">Groom</p><p class="who">鄒博翔</p></div>
   </div>
@@ -1546,8 +1542,8 @@
     setTimeout(() => {
       root.classList.remove("locked");
       hero.classList.add("leaving");
-      setTimeout(() => { hero.hidden = true; }, reduce ? 0 : 950);
-    }, reduce ? 0 : 2600);
+      setTimeout(() => { hero.hidden = true; }, reduce ? 0 : 1150);
+    }, reduce ? 0 : 1900);
   }
 
   envelope.addEventListener("click", openEnvelope);
