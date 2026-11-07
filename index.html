@@ -1127,6 +1127,11 @@
 
   /* —— 第四段：粉色水波（婚禮時間、倒數、兜兜轉轉） —— */
   .s-water { --scene-bg: url("flora/water-tile.webp") center top / 100% auto repeat-y, #e3cdc9; --sage-deep: #94586a; --ink-soft: #85666c; --rose: #c48892; --ink: #54444a; color: var(--ink); padding-block: calc(var(--seam) + 8px) calc(var(--seam) + 24px); }
+  .s-water.has-date-art { padding-top: calc(var(--seam) * 0.5); }
+  .date-art { margin-bottom: 8px; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 4%, #000 94%, transparent); mask-image: linear-gradient(to bottom, transparent 0, #000 4%, #000 94%, transparent); }
+  .date-art-wrap { position: relative; }
+  .zoomable.date-hit { position: absolute; left: 23.4%; top: 54.2%; width: 54%; height: 33.7%; border-radius: 50%; background: none; }
+  .zoomable.date-hit img { opacity: 0; }
   .s-water .unit, .s-bow .way { background: rgba(255, 250, 248, 0.55); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
   .s-water .unit { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75), 0 6px 14px -10px rgba(120, 60, 70, 0.4); }
 
@@ -1141,7 +1146,7 @@
   .s-bow .way { border-color: rgba(185, 123, 136, 0.55); }
 
   /* —— 第六段：Dress code（整張設計圖） —— */
-  .s-dress { --scene-bg: #ebe8e1; padding-block: calc(var(--seam) * 0.75); }
+  .s-dress { --scene-bg: #f2eae3; padding-block: calc(var(--seam) * 0.75); }
   .s-dress .scene-img { -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 3%, #000 97%, transparent); mask-image: linear-gradient(to bottom, transparent 0, #000 3%, #000 97%, transparent); }
 
   /* —— 結尾 —— */
@@ -1409,20 +1414,13 @@
   </div>
 </section>
 
-<section class="scene s-water" aria-labelledby="h-date">
+<section class="scene s-water has-date-art" aria-labelledby="h-date">
+  <h2 class="sr-only" id="h-date">婚禮時間</h2>
+  <div class="date-art-wrap">
+    <img class="scene-img date-art" src="flora/date-art.webp" alt="The Date 婚禮時間：2026 年 12 月 12 日（星期六），17:30 迎賓雞尾酒，18:00 正式入席。誠摯邀請您見證我們的幸福時刻。" width="704" height="1454" loading="lazy" decoding="async">
+    <button class="shot zoomable date-hit" type="button" aria-label="放大照片"><img src="photos/thumb-01.webp" data-full="photos/photo-01.jpg" decoding="async" loading="lazy" alt="博翔與虹潔的婚紗照" width="520" height="781"></button>
+  </div>
   <div class="wrap">
-    <div class="heading">
-      <p class="script">The Date</p>
-      <h2 id="h-date">婚禮時間</h2>
-    </div>
-    <p class="big-date">2026 . 12 . 12</p>
-    <p class="date-sub">星期六　晚宴 18:00 開席</p>
-    <p class="invite-line">誠摯邀請您見證我們的幸福時刻</p>
-    <div class="ornate ornate-oval">
-      <button class="shot zoomable" type="button" aria-label="放大照片"><img src="flora/framed-oval-v2.webp" data-full="photos/photo-01.jpg" decoding="async" loading="lazy" alt="博翔與虹潔的婚紗照，粉色雕花相框" width="896" height="1157"></button>
-    </div>
-
-    <div class="seam-orn" aria-hidden="true"><span></span><b>♥</b><span></span></div>
 
     <div class="heading">
       <p class="script">Counting Down</p>
@@ -1491,7 +1489,7 @@
 
 <section class="scene s-dress" aria-labelledby="h-dress">
   <h2 class="sr-only" id="h-dress">Dress Code</h2>
-  <img class="scene-img" src="flora/dresscode-v2.webp" alt="Dress Code：奶茶色、淺黃色、淺藍色、棕色" width="788" height="1233" loading="lazy">
+  <img class="scene-img" src="flora/dresscode-art.webp" alt="Dress Code 服裝指南：奶茶色、淺黃色、淺藍色、棕色。服裝可盡量穿著以上顏色，讓婚禮色彩更加和諧，照片更漂亮！" width="804" height="1255" loading="lazy" decoding="async">
 </section>
 
 <footer class="scene s-ending">
